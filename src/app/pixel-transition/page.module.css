@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap');
+.main {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #1e1e1e;
+  font-family: 'Raleway', sans-serif;
+}
+
+.header {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 80px;
+  padding: 1em;
+  position: absolute;
+}
+
+.burger__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.burger__menu div {
+  width: 35px;
+  height: 2px;
+  background-color: #fcfcfc;
+  border-radius: 0.135rem;
+}
+
+.burger__active div:nth-child(2) {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.burger__active div:nth-child(1) {
+  transform: rotate(45deg) translate(15px, 2px);
+}
+
+.burger__active div:nth-child(3) {
+  transform: rotate(-45deg) translate(15px, -2px);
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  gap: 5em;
+}
+
+.menu li {
+  font-size: 4rem;
+  font-weight: 600;
+}
