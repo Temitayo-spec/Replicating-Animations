@@ -1,0 +1,29 @@
+.gallery {
+  height: 120vh;
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.imageContainer img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.vignette {
+  height: 30vw;
+  width: 25vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.vignette img {
+  border-radius: 20px;
+  object-fit: cover;
+  width: 100%;
+}
