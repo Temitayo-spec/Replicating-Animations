@@ -1,6 +1,7 @@
+'use client';
 import styles from './style.module.css';
-
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const anim = {
   hidden: {
@@ -23,14 +24,6 @@ const anim = {
 };
 
 const PixelBackgroundCentered = ({ isOpen }: { isOpen: boolean }) => {
-  /**
-
-     * Shuffles array in place (Fisher–Yates shuffle).
-
-     * @param {Array} a items An array containing the items.
-
-     */
-
   const shuffle = (a: any[]) => {
     var j, x, i;
 
@@ -48,35 +41,40 @@ const PixelBackgroundCentered = ({ isOpen }: { isOpen: boolean }) => {
   };
 
   const getBlocks = () => {
-    if (typeof window !== undefined) {
-      const { innerWidth, innerHeight } = window;
-      const blockSize = innerWidth * 0.05;
-      const amountOfBlocks = Math.ceil(innerHeight / blockSize);
-      const shuffledIndexes = shuffle(
-        Array.from({ length: amountOfBlocks }, (_, i) => i)
+    const { innerWidth, innerHeight } = window;
+    const blockSize = innerWidth * 0.05;
+    const amountOfBlocks = Math.ceil(innerHeight / blockSize);
+    const shuffledIndexes = shuffle(
+      Array.from({ length: amountOfBlocks }, (_, i) => i)
+    );
+    return shuffledIndexes.map((randomIndex, index) => {
+      return (
+        <motion.div
+          key={index}
+          className={styles.block}
+          variants={anim}
+          initial="initial"
+          animate={isOpen ? 'open' : 'closed'}
+          custom={randomIndex}
+        />
       );
-      return shuffledIndexes.map((randomIndex, index) => {
-        return (
-          <motion.div
-            key={index}
-            className={styles.block}
-            variants={anim}
-            initial="initial"
-            animate={isOpen ? 'open' : 'closed'}
-            custom={randomIndex}
-          />
-        );
-      });
-    } else return null;
+    });
   };
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <div className={styles.pixelBackground}>
-      {Array.from({ length: 20 }, (_, i) => (
-        <div key={i} className={styles.column}>
-          {getBlocks()}
-        </div>
-      ))}
+      {isClient &&
+        Array.from({ length: 20 }, (_, i) => (
+          <div key={i} className={styles.column}>
+            {getBlocks()}
+          </div>
+        ))}
     </div>
   );
 };
