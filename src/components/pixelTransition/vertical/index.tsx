@@ -67,6 +67,9 @@ const PixelBackgroundVertical = ({ isOpen }: { isOpen: boolean }) => {
           />
         );
       });
+    } else {
+      // Return a placeholder or handle the case where `window` is not available.
+      return null;
     }
   };
 

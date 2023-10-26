@@ -1,5 +1,4 @@
 import styles from './style.module.css';
-
 import { motion } from 'framer-motion';
 
 const anim = {
@@ -23,14 +22,6 @@ const anim = {
 };
 
 const PixelBackgroundHorizontal = ({ isOpen }: { isOpen: boolean }) => {
-  /**
-
-     * Shuffles array in place (Fisher–Yates shuffle).
-
-     * @param {Array} a items An array containing the items.
-
-     */
-
   const shuffle = (a: any[]) => {
     var j, x, i;
 
@@ -70,6 +61,9 @@ const PixelBackgroundHorizontal = ({ isOpen }: { isOpen: boolean }) => {
           />
         );
       });
+    } else {
+      // Return a placeholder or handle the case where `window` is not available.
+      return null;
     }
   };
 
