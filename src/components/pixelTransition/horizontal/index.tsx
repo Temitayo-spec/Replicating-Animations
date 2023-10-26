@@ -1,5 +1,6 @@
 import styles from './style.module.css';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const anim = {
   hidden: {
@@ -39,41 +40,43 @@ const PixelBackgroundHorizontal = ({ isOpen }: { isOpen: boolean }) => {
   };
 
   const getBlocks = (indexOfColumn: number) => {
-    if (typeof window !== 'undefined') {
-      const { innerWidth, innerHeight } = window;
-      const blockSize = innerWidth * 0.05;
-      const amountOfBlocks = Math.ceil(innerHeight / blockSize);
-      const shuffledIndexes = shuffle(
-        Array.from({ length: amountOfBlocks }, (_, i) => i)
+    const { innerWidth, innerHeight } = window;
+    const blockSize = innerWidth * 0.05;
+    const amountOfBlocks = Math.ceil(innerHeight / blockSize);
+    const shuffledIndexes = shuffle(
+      Array.from({ length: amountOfBlocks }, (_, i) => i)
+    );
+    return shuffledIndexes.map((randomIndex, index) => {
+      return (
+        <motion.div
+          key={index}
+          className={styles.block}
+          variants={anim}
+          initial="initial"
+          animate={isOpen ? 'open' : 'closed'}
+          custom={[
+            indexOfColumn + randomIndex,
+            20 - randomIndex + indexOfColumn,
+          ]}
+        />
       );
-      return shuffledIndexes.map((randomIndex, index) => {
-        return (
-          <motion.div
-            key={index}
-            className={styles.block}
-            variants={anim}
-            initial="initial"
-            animate={isOpen ? 'open' : 'closed'}
-            custom={[
-              indexOfColumn + randomIndex,
-              20 - randomIndex + indexOfColumn,
-            ]}
-          />
-        );
-      });
-    } else {
-      // Return a placeholder or handle the case where `window` is not available.
-      return null;
-    }
+    });
   };
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <div className={styles.pixelBackground}>
-      {Array.from({ length: 20 }, (_, i) => (
-        <div key={i} className={styles.column}>
-          {getBlocks(i)}
-        </div>
-      ))}
+      {isClient &&
+        Array.from({ length: 20 }, (_, i) => (
+          <div key={i} className={styles.column}>
+            {getBlocks(i)}
+          </div>
+        ))}
     </div>
   );
 };

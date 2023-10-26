@@ -48,24 +48,26 @@ const PixelBackgroundCentered = ({ isOpen }: { isOpen: boolean }) => {
   };
 
   const getBlocks = () => {
-    const { innerWidth, innerHeight } = window;
-    const blockSize = innerWidth * 0.05;
-    const amountOfBlocks = Math.ceil(innerHeight / blockSize);
-    const shuffledIndexes = shuffle(
-      Array.from({ length: amountOfBlocks }, (_, i) => i)
-    );
-    return shuffledIndexes.map((randomIndex, index) => {
-      return (
-        <motion.div
-          key={index}
-          className={styles.block}
-          variants={anim}
-          initial="initial"
-          animate={isOpen ? 'open' : 'closed'}
-          custom={randomIndex}
-        />
+    if (typeof window !== undefined) {
+      const { innerWidth, innerHeight } = window;
+      const blockSize = innerWidth * 0.05;
+      const amountOfBlocks = Math.ceil(innerHeight / blockSize);
+      const shuffledIndexes = shuffle(
+        Array.from({ length: amountOfBlocks }, (_, i) => i)
       );
-    });
+      return shuffledIndexes.map((randomIndex, index) => {
+        return (
+          <motion.div
+            key={index}
+            className={styles.block}
+            variants={anim}
+            initial="initial"
+            animate={isOpen ? 'open' : 'closed'}
+            custom={randomIndex}
+          />
+        );
+      });
+    } else return null;
   };
 
   return (
