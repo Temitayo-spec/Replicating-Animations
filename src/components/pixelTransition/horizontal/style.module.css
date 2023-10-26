@@ -1,0 +1,16 @@
+.pixelBackground {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.column {
+  width: 5vw;
+  height: 100vh;
+}
+
+.block {
+  height: 5vw;
+  width: 100%;
+  background-color: yellow;
+}

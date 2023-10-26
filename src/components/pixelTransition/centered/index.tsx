@@ -22,7 +22,7 @@ const anim = {
   }),
 };
 
-const PixelBackground = ({ isOpen }: { isOpen: boolean }) => {
+const PixelBackgroundCentered = ({ isOpen }: { isOpen: boolean }) => {
   /**
 
      * Shuffles array in place (Fisher–Yates shuffle).
@@ -79,4 +79,4 @@ const PixelBackground = ({ isOpen }: { isOpen: boolean }) => {
   );
 };
 
-export default PixelBackground;
+export default PixelBackgroundCentered;
