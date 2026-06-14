@@ -289,7 +289,7 @@ const Slider = () => {
       >
         <div className="pointer-events-none absolute left-12 top-12 z-[40]">
           <h1 className="w-1/2 font-['PP_Neue_Montreal'] text-[clamp(3rem,5vw,7rem)] font-medium leading-none tracking-[-0.02em]">
-            Perpetual Motion
+            Always Arriving
           </h1>
         </div>
       </section>
