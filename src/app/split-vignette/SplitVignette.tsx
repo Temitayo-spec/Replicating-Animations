@@ -1,6 +1,5 @@
 'use client';
 import Gallery from '@/components/SplitVigenette/Gallery';
-import styles from './page.module.css';
 import { useEffect, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { useMotionValue, useSpring } from 'framer-motion';
@@ -56,7 +55,7 @@ const SplitVignette = () => {
     } else return null;
   };
   return (
-    <main className={styles.main} onMouseMove={mouseMove}>
+    <main onMouseMove={mouseMove}>
       {projects.map(({ handle }, i) => {
         return (
           <Gallery mousePosition={mousePosiiton} handle={handle} key={i} />

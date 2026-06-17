@@ -2,7 +2,6 @@
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
-import styles from './page.module.css';
 
 type Slide = { image: string; name: string; year: string };
 
@@ -122,38 +121,42 @@ const FullScreenImageSlider = () => {
   // Columns are tripled so the scroll can loop without a visible jump.
   const looped = Array.from({ length: REPEAT }, () => SLIDES).flat();
 
+  // Shared classes for the three clipped, one-row metadata windows.
+  const META =
+    "absolute top-[55%] h-[30px] -translate-x-1/2 -translate-y-1/2 font-['Signika'] text-[18px] uppercase leading-[30px] text-white [clip-path:polygon(0_0,100%_0,100%_30px,0_30px)]";
+
   return (
     <>
-      <div className={styles.slider__content}>
-        <div className={styles.slide__number}>
-          <div className={styles.prefix} ref={prefixRef}>
+      <div className="pointer-events-none absolute left-0 top-0 z-[10000] h-screen w-screen bg-black/50">
+        <div className={`${META} left-[10%] flex gap-[0.25em]`}>
+          <div className="relative top-0" ref={prefixRef}>
             {looped.map((_, i) => (
               <div key={i}>{(i % SLIDES.length) + 1}</div>
             ))}
           </div>
-          <div className={styles.postfix}>
-            <span>/</span> {SLIDES.length}
+          <div>
+            <span className="px-1">/</span> {SLIDES.length}
           </div>
         </div>
-        <div className={styles.slide__name}>
-          <div className={styles.names} ref={namesRef}>
+        <div className={`${META} left-[30%] max-[900px]:left-1/2`}>
+          <div className="relative top-0" ref={namesRef}>
             {looped.map((slide, i) => (
               <div key={i}>{slide.name}</div>
             ))}
           </div>
         </div>
-        <div className={styles.slide__year}>
-          <div className={styles.years} ref={yearsRef}>
+        <div className={`${META} right-[20%] max-[900px]:right-[10%]`}>
+          <div className="relative top-0" ref={yearsRef}>
             {looped.map((slide, i) => (
               <div key={i}>{slide.year}</div>
             ))}
           </div>
         </div>
       </div>
-      <div className={styles.slider} ref={sliderRef}>
+      <div className="relative h-screen w-screen" ref={sliderRef}>
         {SLIDES.map((slide, i) => (
           <div
-            className={styles.slide}
+            className="absolute bottom-0 left-0 h-full w-full overflow-hidden [clip-path:polygon(0_100%,100%_100%,100%_100%,0_100%)] [will-change:clip-path]"
             key={slide.image}
             data-slide
             style={i === 0 ? { clipPath: CLIP.full } : undefined}
@@ -164,6 +167,7 @@ const FullScreenImageSlider = () => {
               width={1920}
               height={1080}
               priority={i === 0}
+              className="h-full w-full object-cover"
             />
           </div>
         ))}

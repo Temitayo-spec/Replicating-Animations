@@ -1,15 +1,16 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import CodeShowcase from '@/components/CodeShowcase/CodeShowcase';
+import { readSource } from '@/lib/source';
 import PixelTransition from './PixelTransition';
 
-const source = fs.readFileSync(
-  path.join(process.cwd(), 'src/app/pixel-transition/PixelTransition.tsx'),
-  'utf8',
-);
+const files = [
+  readSource('src/app/pixel-transition/PixelTransition.tsx'),
+  readSource('src/components/pixelTransition/centered/index.tsx', 'PixelBackgroundCentered.tsx'),
+  readSource('src/components/pixelTransition/horizontal/index.tsx', 'PixelBackgroundHorizontal.tsx'),
+  readSource('src/components/pixelTransition/vertical/index.tsx', 'PixelBackgroundVertical.tsx'),
+];
 
 const Page = () => (
-  <CodeShowcase code={source} filename="PixelTransition.tsx" language="tsx">
+  <CodeShowcase files={files}>
     <PixelTransition />
   </CodeShowcase>
 );

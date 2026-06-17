@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import styles from './page.module.css';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Key, useEffect, useRef, useState } from 'react';
 import { useTransform, useScroll, motion } from 'framer-motion';
@@ -60,28 +59,45 @@ const SmoothParallaxScroll: React.FC = () => {
   const y3 = useTransform(scrollYProgress, [0, 1], [0, height * 1.25]);
   const y4 = useTransform(scrollYProgress, [0, 1], [0, height * 3]);
   return (
-    <main className={styles.main}>
-      <div className={styles.spacer}></div>
-      <div ref={container} className={styles.gallery}>
-        <Column images={[images[0], images[1], images[2]]} y={y} />
-        <Column images={[images[3], images[4], images[5]]} y={y2} />
-        <Column images={[images[6], images[7], images[8]]} y={y3} />
-        <Column images={[images[9], images[10], images[11]]} y={y4} />
+    <main className="grid place-items-center bg-[rgb(45,45,45)]">
+      <div className="h-screen w-screen bg-[pink]"></div>
+      <div
+        ref={container}
+        className="relative flex h-[175vh] gap-[2vw] overflow-hidden box-border p-[2vw]"
+      >
+        <Column images={[images[0], images[1], images[2]]} y={y} top="top-[-45%]" />
+        <Column images={[images[3], images[4], images[5]]} y={y2} top="top-[-95%]" />
+        <Column images={[images[6], images[7], images[8]]} y={y3} top="top-[-45%]" />
+        <Column images={[images[9], images[10], images[11]]} y={y4} top="top-[-75%]" />
       </div>
-      <div className={styles.spacer}></div>
+      <div className="h-screen w-screen bg-[pink]"></div>
     </main>
   );
 };
 
 export default SmoothParallaxScroll;
 
-const Column = ({ images, y = 0 }: { images: string[]; y: any }) => {
+const Column = ({
+  images,
+  y = 0,
+  top,
+}: {
+  images: string[];
+  y: any;
+  top: string;
+}) => {
   return (
-    <motion.div style={{ y }} className={styles.column}>
+    <motion.div
+      style={{ y }}
+      className={`relative flex h-full w-1/4 min-w-[250px] flex-col gap-[2vw] ${top}`}
+    >
       {images.map(
         (src: string | StaticImport, index: Key | null | undefined) => (
-          <div key={index} className={styles.imageContainer}>
-            <Image src={src} fill alt="image" />
+          <div
+            key={index}
+            className="relative h-[350px] w-full overflow-hidden rounded-[1vw]"
+          >
+            <Image src={src} fill alt="image" className="object-cover" />
           </div>
         )
       )}

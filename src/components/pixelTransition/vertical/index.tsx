@@ -1,5 +1,4 @@
 'use client';
-import styles from './style.module.css';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
@@ -51,7 +50,7 @@ const PixelBackgroundVertical = ({ isOpen }: { isOpen: boolean }) => {
       return (
         <motion.div
           key={index}
-          className={styles.block}
+          className="h-full w-[10vw] bg-yellow-300"
           variants={anim}
           initial="initial"
           animate={isOpen ? 'open' : 'closed'}
@@ -68,10 +67,10 @@ const PixelBackgroundVertical = ({ isOpen }: { isOpen: boolean }) => {
   }, []);
 
   return (
-    <div className={styles.pixelBackground}>
+    <div className="flex h-screen overflow-hidden flex-col">
       {isClient &&
         Array.from({ length: 10 }, (_, i) => (
-          <div key={i} className={styles.row}>
+          <div key={i} className="h-[10vh] w-screen flex">
             {getBlocks(i)}
           </div>
         ))}
