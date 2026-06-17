@@ -66,13 +66,13 @@ const CodeShowcase = ({
       {/* Transparent click-catcher — closes on outside click, keeps demo visible */}
       <div
         onClick={() => setOpen(false)}
-        className={`fixed inset-0 z-[9998] ${open ? "" : "pointer-events-none"}`}
+        className={`fixed inset-0 z-[10010] ${open ? "" : "pointer-events-none"}`}
         aria-hidden="true"
       />
 
       {/* Right side sheet */}
       <aside
-        className={`fixed right-0 top-0 z-[9999] flex h-screen w-[min(92vw,560px)] flex-col border-l border-black/10 bg-[#f7f6f1] shadow-[-8px_0_40px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-out ${
+        className={`fixed right-0 top-0 z-[10020] flex h-screen w-[min(92vw,560px)] flex-col border-l border-black/10 bg-[#f7f6f1] shadow-[-8px_0_40px_rgba(0,0,0,0.12)] transition-transform duration-300 ease-out ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
         role="dialog"

@@ -20,6 +20,12 @@ export const animations: Animation[] = [
     stack: 'GSAP',
   },
   {
+    slug: 'accordion-frames',
+    title: 'Accordion Frames',
+    blurb: 'A spotlight accordion of thin frames that ease open on hover, with a focus marker tracing the active panel.',
+    stack: 'React + CSS',
+  },
+  {
     slug: 'pixel-transition',
     title: 'Pixel Transition',
     blurb: 'A pixelated reveal that tiles the viewport and animates in from the centre, horizontal or vertical.',

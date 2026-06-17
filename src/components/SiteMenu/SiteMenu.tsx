@@ -47,7 +47,7 @@ const SiteMenu = () => {
       </button>
 
       <div
-        className={`fixed inset-0 z-[10001] bg-[#edede7] text-neutral-900 transition-opacity duration-300 ${
+        className={`fixed inset-0 z-[10030] bg-[#edede7] text-neutral-900 transition-opacity duration-300 ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         role="dialog"
