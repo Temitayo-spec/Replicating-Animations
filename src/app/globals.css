@@ -17,3 +17,12 @@ a {
 #slide__1 {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
+
+/* SplitText-generated nodes in the shockwave slider can't take Tailwind
+   classes, so style them here (scoped to the slider root). */
+.shockwave .char,
+.shockwave .line {
+  display: inline-block;
+  position: relative;
+  will-change: transform;
+}

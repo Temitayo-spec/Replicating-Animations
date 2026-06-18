@@ -20,6 +20,12 @@ export const animations: Animation[] = [
     stack: 'GSAP',
   },
   {
+    slug: 'shockwave-content-slider',
+    title: 'Shockwave Slider',
+    blurb: 'A WebGL ripple that shockwaves across the screen to crossfade between slides, with masked text swapping in sync.',
+    stack: 'Three.js + GSAP',
+  },
+  {
     slug: 'accordion-frames',
     title: 'Accordion Frames',
     blurb: 'A spotlight accordion of thin frames that ease open on hover, with a focus marker tracing the active panel.',

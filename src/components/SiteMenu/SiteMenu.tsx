@@ -72,8 +72,10 @@ const SiteMenu = () => {
             </button>
           </div>
 
-          <nav className="flex flex-1 flex-col justify-center">
-            <ul>
+          <nav className="flex-1 overflow-y-auto overscroll-contain py-6">
+            {/* min-h-full + justify-center: centers when the list fits, scrolls
+                from the top once it's taller than the viewport. */}
+            <ul className="flex min-h-full flex-col justify-center">
               {animations.map((a, i) => {
                 const active = pathname === `/${a.slug}`;
                 return (
