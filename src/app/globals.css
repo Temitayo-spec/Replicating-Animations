@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Signika:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.cdnfonts.com/css/pp-neue-montreal");
 @import "tailwindcss";
 
@@ -25,4 +26,12 @@ a {
   display: inline-block;
   position: relative;
   will-change: transform;
+}
+
+@theme inline {
+  --font-pp-neue-montreal: "PP Neue Montreal", sans-serif;
+  --font-raleway: "Raleway", sans-serif;
+  --font-onest: "Onest", sans-serif;
+  --font-google-sans: var(--font-google-sans);
+  --font-inter: var(--font-inter);
 }

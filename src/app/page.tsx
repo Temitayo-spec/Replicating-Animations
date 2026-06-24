@@ -36,7 +36,7 @@ export default function Home() {
               <li key={a.slug}>
                 <Link
                   href={`/${a.slug}`}
-                  className="group flex items-center gap-4 border-b border-neutral-300 py-5 transition-colors hover:bg-black/[0.03] md:gap-8 md:py-6"
+                  className="group flex items-center gap-4 border-b border-neutral-300 py-5 transition-colors hover:bg-black/3 md:gap-8 md:py-6"
                 >
                   <span className="font-mono text-xs text-neutral-400 md:text-sm">
                     {String(i + 1).padStart(2, '0')}

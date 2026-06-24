@@ -1,9 +1,21 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Google_Sans, Onest } from 'next/font/google'
 import SiteMenu from '@/components/SiteMenu/SiteMenu'
 
 const inter = Inter({ subsets: ['latin'] })
+
+const googleSans = Google_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-google-sans",
+});
+
+const onest = Onest({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-onest",
+});
 
 export const metadata: Metadata = {
   title: 'Replicating Animations',
@@ -17,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} ${googleSans.variable} ${onest.variable}`}>
         {children}
         <SiteMenu />
       </body>

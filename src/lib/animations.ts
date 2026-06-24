@@ -20,6 +20,12 @@ export const animations: Animation[] = [
     stack: 'GSAP',
   },
   {
+    slug: 'overlay-menu',
+    title: 'Overlay Menu',
+    blurb: 'A full-screen nav that stacks colour panels down the page, then reveals masked links in sequence.',
+    stack: 'GSAP + SplitText',
+  },
+  {
     slug: 'shockwave-content-slider',
     title: 'Shockwave Slider',
     blurb: 'A WebGL ripple that shockwaves across the screen to crossfade between slides, with masked text swapping in sync.',
@@ -49,10 +55,6 @@ export const animations: Animation[] = [
     blurb: 'A split gallery that parts around a hovered project, easing apart with spring physics.',
     stack: 'Framer Motion + Lenis',
   },
-  {
-    slug: 'website-preloader',
-    title: 'Website Preloader',
-    blurb: 'A staged loading sequence that wipes away to reveal the page beneath it.',
-    stack: 'GSAP',
-  },
+  // 'website-preloader' is hidden from the index/menu until its animation is
+  // implemented. The route still exists at /website-preloader.
 ];
