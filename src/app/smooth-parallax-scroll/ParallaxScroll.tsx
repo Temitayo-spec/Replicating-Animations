@@ -4,7 +4,6 @@ import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Key, useEffect, useRef, useState } from "react";
 import { useTransform, useScroll, motion } from "framer-motion";
-import Lenis from "@studio-freight/lenis";
 
 const images = [
   "/images/1.jpg",
@@ -31,21 +30,11 @@ const SmoothParallaxScroll: React.FC = () => {
   });
 
   useEffect(() => {
-    const lenis = new Lenis();
-
-    function raf(time: any) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
     const resize = () => {
       setDimension({ width: window.innerWidth, height: window.innerHeight });
     };
 
     window.addEventListener("resize", resize);
-    requestAnimationFrame(raf);
     resize();
 
     return () => {
