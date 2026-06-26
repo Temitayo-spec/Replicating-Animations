@@ -24,20 +24,91 @@ type SlideInfo = {
   description: string;
 };
 
-// Editorial metadata shown when a slide is expanded.
 const SLIDE_DATA: SlideInfo[] = [
-  { title: "Crimson Hour", location: "Osaka, JP", year: "2023", description: "A figure caught between stillness and the next step — the city exhaling neon into the dusk." },
-  { title: "Electric Pulse", location: "Shibuya, JP", year: "2022", description: "Light bends around the crowd, every face lit by a screen that never sleeps." },
-  { title: "Night Circuit", location: "Akihabara, JP", year: "2023", description: "Signage stacked like memory — a thousand stories competing for a single glance." },
-  { title: "Quiet Velocity", location: "Nagano, JP", year: "2021", description: "Stillness is just motion holding its breath before the descent." },
-  { title: "Concrete Bloom", location: "Berlin, DE", year: "2022", description: "An empty lot reclaimed by colour, a mural blooming where nothing was meant to grow." },
-  { title: "Vermilion Drift", location: "Kyoto, JP", year: "2023", description: "Red is not a colour here, it is a temperature — the warmth of a moment passing." },
-  { title: "Steel Garden", location: "Tokyo, JP", year: "2022", description: "Wires overhead like vines, the rooftops a canopy of antennae and ambition." },
-  { title: "After Rain", location: "Sapporo, JP", year: "2021", description: "The street holds the sky in its puddles, doubling the world for anyone slow enough to look." },
-  { title: "Midnight Index", location: "Shinjuku, JP", year: "2023", description: "Numbers, names, departures — the architecture of a city that measures itself in light." },
-  { title: "Soft Machine", location: "Yokohama, JP", year: "2022", description: "Precision rendered tender — the hard edge of engineering softened by the hour." },
-  { title: "Paper Lantern", location: "Nara, JP", year: "2021", description: "A glow that remembers older nights, carried forward into the rush of the new." },
-  { title: "Perpetual", location: "—", year: "2024", description: "The lineup never ends; every image is the next, and the next is always arriving." },
+  {
+    title: "Crimson Hour",
+    location: "Osaka, JP",
+    year: "2023",
+    description:
+      "A figure caught between stillness and the next step — the city exhaling neon into the dusk.",
+  },
+  {
+    title: "Electric Pulse",
+    location: "Shibuya, JP",
+    year: "2022",
+    description:
+      "Light bends around the crowd, every face lit by a screen that never sleeps.",
+  },
+  {
+    title: "Night Circuit",
+    location: "Akihabara, JP",
+    year: "2023",
+    description:
+      "Signage stacked like memory — a thousand stories competing for a single glance.",
+  },
+  {
+    title: "Quiet Velocity",
+    location: "Nagano, JP",
+    year: "2021",
+    description:
+      "Stillness is just motion holding its breath before the descent.",
+  },
+  {
+    title: "Concrete Bloom",
+    location: "Berlin, DE",
+    year: "2022",
+    description:
+      "An empty lot reclaimed by colour, a mural blooming where nothing was meant to grow.",
+  },
+  {
+    title: "Vermilion Drift",
+    location: "Kyoto, JP",
+    year: "2023",
+    description:
+      "Red is not a colour here, it is a temperature — the warmth of a moment passing.",
+  },
+  {
+    title: "Steel Garden",
+    location: "Tokyo, JP",
+    year: "2022",
+    description:
+      "Wires overhead like vines, the rooftops a canopy of antennae and ambition.",
+  },
+  {
+    title: "After Rain",
+    location: "Sapporo, JP",
+    year: "2021",
+    description:
+      "The street holds the sky in its puddles, doubling the world for anyone slow enough to look.",
+  },
+  {
+    title: "Midnight Index",
+    location: "Shinjuku, JP",
+    year: "2023",
+    description:
+      "Numbers, names, departures — the architecture of a city that measures itself in light.",
+  },
+  {
+    title: "Soft Machine",
+    location: "Yokohama, JP",
+    year: "2022",
+    description:
+      "Precision rendered tender — the hard edge of engineering softened by the hour.",
+  },
+  {
+    title: "Paper Lantern",
+    location: "Nara, JP",
+    year: "2021",
+    description:
+      "A glow that remembers older nights, carried forward into the rush of the new.",
+  },
+  {
+    title: "Perpetual",
+    location: "—",
+    year: "2024",
+    description:
+      "The lineup never ends; every image is the next, and the next is always arriving.",
+  },
 ];
 
 type DetailState = {
@@ -98,17 +169,13 @@ const Slider = () => {
       if (img) img.src = `/images/${imageNumber}.jpg`;
     }
 
-    // Cached dimensions — updated only on resize, not every frame.
     let viewWidth = 0;
     let viewHeight = 0;
-    let baseWidth = 1; // the size each slide is rendered at before scaling down
+    let baseWidth = 1;
 
     function measure() {
       viewWidth = slider!.clientWidth;
       viewHeight = slider!.clientHeight;
-      // Render slides at the largest size they'll reach (a touch beyond the
-      // viewport so the rightmost, partially-visible slide never upscales),
-      // then scale DOWN with the GPU — sharp and layout-free.
       baseWidth = Math.ceil(viewWidth * growthRatio) || 1;
       const baseHeight = baseWidth / config.aspect;
       for (const slide of slides) {
@@ -129,8 +196,6 @@ const Slider = () => {
     let running = false;
     let rafId = 0;
 
-    // Position every slide for the current `scroll`. No layout-triggering
-    // properties here — only transform + zIndex (both compositor-friendly).
     function layout() {
       const baselineOffset = viewHeight * config.baseline;
 
@@ -159,7 +224,6 @@ const Slider = () => {
     function render() {
       const delta = scrollTarget - scroll;
 
-      // Settled: snap exactly, lay out one last frame, and stop the loop.
       if (Math.abs(delta) < 0.0001) {
         scroll = scrollTarget;
         layout();
@@ -172,14 +236,12 @@ const Slider = () => {
       rafId = requestAnimationFrame(render);
     }
 
-    // Restart the loop on input; it parks itself again once movement settles.
     function kick() {
       if (running || frozenRef.current) return;
       running = true;
       rafId = requestAnimationFrame(render);
     }
 
-    // Expand the tapped slide into the fullscreen detail view.
     function openDetail(clientX: number, clientY: number) {
       const hit = document
         .elementFromPoint(clientX, clientY)
@@ -263,7 +325,6 @@ const Slider = () => {
     slider.addEventListener("pointerup", onPointerUp);
     slider.addEventListener("pointercancel", onPointerCancel);
 
-    // Initial paint.
     layout();
 
     return () => {
@@ -287,7 +348,7 @@ const Slider = () => {
         ref={sliderRef}
         className="relative h-screen w-full cursor-grab touch-none overflow-hidden bg-[#edede7] active:cursor-grabbing"
       >
-        <div className="pointer-events-none absolute left-12 top-12 z-[40]">
+        <div className="pointer-events-none absolute left-12 top-12 z-40">
           <h1 className="w-1/2 font-['PP_Neue_Montreal'] text-[clamp(3rem,5vw,7rem)] font-medium leading-none tracking-[-0.02em]">
             Always Arriving
           </h1>
@@ -328,7 +389,6 @@ const SlideDetail = ({
   const [revealed, setRevealed] = useState(false);
   const data = SLIDE_DATA[(image - 1) % SLIDE_DATA.length];
 
-  // Transform that maps the fullscreen image down onto the slide's rect.
   const startTransform: CSSProperties = {
     transform: `translate(${rect.left}px, ${rect.top}px) scale(${
       rect.width / window.innerWidth
@@ -340,9 +400,11 @@ const SlideDetail = ({
     const node = imgRef.current;
     if (!node) return;
 
-    // FLIP: from the slide's rect up to fullscreen.
     const anim = node.animate(
-      [startTransform as Keyframe, { transform: "translate(0px, 0px) scale(1, 1)" }],
+      [
+        startTransform as Keyframe,
+        { transform: "translate(0px, 0px) scale(1, 1)" },
+      ],
       { duration: 720, easing: EXPAND_EASE, fill: "both" },
     );
     const reveal = setTimeout(() => setRevealed(true), 360);
@@ -352,7 +414,6 @@ const SlideDetail = ({
       anim.cancel();
       el.style.visibility = "";
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const close = () => {
@@ -366,7 +427,10 @@ const SlideDetail = ({
       return;
     }
     const anim = node.animate(
-      [{ transform: "translate(0px, 0px) scale(1, 1)" }, startTransform as Keyframe],
+      [
+        { transform: "translate(0px, 0px) scale(1, 1)" },
+        startTransform as Keyframe,
+      ],
       { duration: 560, easing: COLLAPSE_EASE, fill: "forwards" },
     );
     anim.onfinish = onClose;
@@ -378,12 +442,10 @@ const SlideDetail = ({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div className="fixed inset-0 z-[10000] overflow-hidden">
-      {/* Expanding image (click to dismiss) */}
+    <div className="fixed inset-0 z-10000 overflow-hidden">
       <img
         ref={imgRef}
         src={`/images/${image}.jpg`}
@@ -393,15 +455,13 @@ const SlideDetail = ({
         className="absolute inset-0 h-full w-full origin-top-left cursor-zoom-out object-cover will-change-transform"
       />
 
-      {/* Gradient scrim for text legibility */}
       <div
         onClick={close}
-        className={`pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10 transition-opacity duration-700 ${
+        className={`pointer-events-none absolute inset-0 bg-linear-to-t from-black/80 via-black/25 to-black/10 transition-opacity duration-700 ${
           revealed ? "opacity-100" : "opacity-0"
         }`}
       />
 
-      {/* Close button */}
       <button
         type="button"
         onClick={close}
@@ -410,16 +470,24 @@ const SlideDetail = ({
           revealed ? "opacity-100" : "opacity-0"
         }`}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
           <line x1="18" y1="6" x2="6" y2="18" />
           <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </button>
 
-      {/* Editorial caption — masked reveal (text rises from behind a clip) */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 p-8 md:p-14 lg:p-16">
         <div className="max-w-2xl">
-          {/* Metadata line */}
           <div className="mb-4 overflow-hidden">
             <div
               className={`flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/70 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
@@ -433,15 +501,16 @@ const SlideDetail = ({
             </div>
           </div>
 
-          {/* Title — word-by-word masked rise */}
           <h2 className="flex flex-wrap items-end gap-x-[0.22em] font-['PP_Neue_Montreal'] text-5xl font-medium leading-[0.95] tracking-[-0.02em] text-white md:text-7xl">
             {data.title.split(" ").map((word, i) => (
               <span key={i} className="inline-block overflow-hidden pb-[0.2em]">
                 <span
-                  className={`inline-block transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  className={`inline-block transition-transform duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                     revealed ? "translate-y-0" : "translate-y-full"
                   }`}
-                  style={{ transitionDelay: revealed ? `${120 + i * 70}ms` : "0ms" }}
+                  style={{
+                    transitionDelay: revealed ? `${120 + i * 70}ms` : "0ms",
+                  }}
                 >
                   {word}
                 </span>
@@ -449,10 +518,9 @@ const SlideDetail = ({
             ))}
           </h2>
 
-          {/* Description — masked block rise */}
           <div className="mt-4 max-w-xl overflow-hidden">
             <p
-              className={`text-base leading-relaxed text-white/80 transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] md:text-lg ${
+              className={`text-base leading-relaxed text-white/80 transition-transform duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] md:text-lg ${
                 revealed ? "translate-y-0" : "translate-y-full"
               }`}
               style={{ transitionDelay: revealed ? "280ms" : "0ms" }}
