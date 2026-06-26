@@ -20,6 +20,12 @@ export const animations: Animation[] = [
     stack: 'GSAP',
   },
   {
+    slug: 'smudge-revealer',
+    title: 'Smudge Revealer',
+    blurb: 'Drag the cursor to smear away the top layer, uncovering the message beneath through a gooey SVG mask.',
+    stack: 'GSAP + SVG filters',
+  },
+  {
     slug: 'overlay-menu',
     title: 'Overlay Menu',
     blurb: 'A full-screen nav that stacks colour panels down the page, then reveals masked links in sequence.',
