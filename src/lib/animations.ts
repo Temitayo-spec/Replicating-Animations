@@ -20,6 +20,12 @@ export const animations: Animation[] = [
     stack: 'GSAP',
   },
   {
+    slug: 'landing-page-reveal',
+    title: 'Landing Page Reveal',
+    blurb: 'A loading bar wipes away as five images fly in, stack, and the centre one expands into the hero behind revealing text.',
+    stack: 'GSAP + SplitText',
+  },
+  {
     slug: 'smudge-revealer',
     title: 'Smudge Revealer',
     blurb: 'Drag the cursor to smear away the top layer, uncovering the message beneath through a gooey SVG mask.',

@@ -1,27 +1,34 @@
-'use client';
-import { useEffect, useRef } from 'react';
-import Image from 'next/image';
-import gsap from 'gsap';
+"use client";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import gsap from "gsap";
 
 type Slide = { image: string; name: string; year: string };
 
 const SLIDES: Slide[] = [
-  { image: 'birmingham-museums-trust.jpg', name: 'Near Glarus', year: '1781' },
-  { image: 'adrianna-geo.jpg', name: 'Palace of Versailles', year: '1829' },
-  { image: 'the-path-by-lake.jpg', name: 'The Path By The Lake', year: '1836' },
-  { image: 'paradise-street-towards-christ-church.jpg', name: 'Paradise Street', year: '1840' },
-  { image: 'battle-of-the-pyramids.jpg', name: 'Battle of the Pyramids', year: '1845' },
+  { image: "birmingham-museums-trust.jpg", name: "Near Glarus", year: "1781" },
+  { image: "adrianna-geo.jpg", name: "Palace of Versailles", year: "1829" },
+  { image: "the-path-by-lake.jpg", name: "The Path By The Lake", year: "1836" },
+  {
+    image: "paradise-street-towards-christ-church.jpg",
+    name: "Paradise Street",
+    year: "1840",
+  },
+  {
+    image: "battle-of-the-pyramids.jpg",
+    name: "Battle of the Pyramids",
+    year: "1845",
+  },
 ];
 
-// Clip-path rectangles used to wipe slides in and out.
 const CLIP = {
-  full: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-  bottom: 'polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)',
-  top: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+  full: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+  bottom: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+  top: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
 };
 
-const LINE = 30; // px height of one metadata row (matches the CSS clip window)
-const REPEAT = 3; // metadata columns are tripled so they can loop seamlessly
+const LINE = 30;
+const REPEAT = 3;
 const DURATION = 1.6;
 
 const FullScreenImageSlider = () => {
@@ -35,22 +42,27 @@ const FullScreenImageSlider = () => {
     if (!slider) return;
 
     const slides = Array.from(
-      slider.querySelectorAll<HTMLElement>('[data-slide]'),
+      slider.querySelectorAll<HTMLElement>("[data-slide]"),
     );
-    const images = slides.map((s) => s.querySelector('img'));
+    const images = slides.map((s) => s.querySelector("img"));
     const columns = [prefixRef.current, namesRef.current, yearsRef.current];
 
     const N = SLIDES.length;
     const LOOP = N * LINE;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     const duration = reduce ? 0 : DURATION;
 
-    // Initial state: first slide on top and revealed, the rest clipped away.
     slides.forEach((slide, i) =>
-      gsap.set(slide, { clipPath: i === 0 ? CLIP.full : CLIP.bottom, zIndex: i === 0 ? 1 : 0 }),
+      gsap.set(slide, {
+        clipPath: i === 0 ? CLIP.full : CLIP.bottom,
+        zIndex: i === 0 ? 1 : 0,
+      }),
     );
-    images.forEach((img, i) => img && gsap.set(img, { scale: i === 0 ? 1 : 2 }));
-    // Park the (tripled) columns on the middle copy so they can scroll either way.
+    images.forEach(
+      (img, i) => img && gsap.set(img, { scale: i === 0 ? 1 : 2 }),
+    );
     gsap.set(columns, { y: -LOOP });
 
     let index = 0;
@@ -69,8 +81,6 @@ const FullScreenImageSlider = () => {
       const incomingImg = images[target];
       const outgoingImg = images[from];
 
-      // Always reveal the incoming slide on top with a directional wipe — this
-      // is what makes wrap-around seamless (no reliance on neighbour order).
       topZ += 1;
       gsap.set(incoming, { zIndex: topZ });
       columnY += dir === 1 ? -LINE : LINE;
@@ -78,11 +88,9 @@ const FullScreenImageSlider = () => {
 
       const tl = gsap.timeline({
         onComplete: () => {
-          // The slide we left is now fully covered — reset it for reuse.
           gsap.set(outgoing, { clipPath: CLIP.bottom });
           if (outgoingImg) gsap.set(outgoingImg, { scale: 2 });
 
-          // Re-centre the looped columns on the middle copy (visually identical).
           if (columnY <= -2 * LOOP) columnY += LOOP;
           else if (columnY > -LOOP) columnY -= LOOP;
           if (columnY !== targetY) gsap.set(columns, { y: columnY });
@@ -92,18 +100,18 @@ const FullScreenImageSlider = () => {
         },
       });
 
-      tl.to(columns, { y: targetY, duration, ease: 'power4.inOut' }, 0);
+      tl.to(columns, { y: targetY, duration, ease: "power4.inOut" }, 0);
       tl.fromTo(
         incoming,
         { clipPath: dir === 1 ? CLIP.bottom : CLIP.top },
-        { clipPath: CLIP.full, duration, ease: 'power4.inOut' },
+        { clipPath: CLIP.full, duration, ease: "power4.inOut" },
         0,
       );
       if (incomingImg) {
         tl.fromTo(
           incomingImg,
           { scale: 2 },
-          { scale: 1, duration, ease: 'power3.inOut' },
+          { scale: 1, duration, ease: "power3.inOut" },
           0,
         );
       }
@@ -114,20 +122,18 @@ const FullScreenImageSlider = () => {
       step(e.deltaY > 0 ? 1 : -1);
     };
 
-    window.addEventListener('wheel', onWheel, { passive: true });
-    return () => window.removeEventListener('wheel', onWheel);
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => window.removeEventListener("wheel", onWheel);
   }, []);
 
-  // Columns are tripled so the scroll can loop without a visible jump.
   const looped = Array.from({ length: REPEAT }, () => SLIDES).flat();
 
-  // Shared classes for the three clipped, one-row metadata windows.
   const META =
     "absolute top-[55%] h-[30px] -translate-x-1/2 -translate-y-1/2 font-['Signika'] text-[18px] uppercase leading-[30px] text-white [clip-path:polygon(0_0,100%_0,100%_30px,0_30px)]";
 
   return (
     <>
-      <div className="pointer-events-none absolute left-0 top-0 z-[10000] h-screen w-screen bg-black/50">
+      <div className="pointer-events-none absolute left-0 top-0 z-10000 h-screen w-screen bg-black/50">
         <div className={`${META} left-[10%] flex gap-[0.25em]`}>
           <div className="relative top-0" ref={prefixRef}>
             {looped.map((_, i) => (
@@ -156,7 +162,7 @@ const FullScreenImageSlider = () => {
       <div className="relative h-screen w-screen" ref={sliderRef}>
         {SLIDES.map((slide, i) => (
           <div
-            className="absolute bottom-0 left-0 h-full w-full overflow-hidden [clip-path:polygon(0_100%,100%_100%,100%_100%,0_100%)] [will-change:clip-path]"
+            className="absolute bottom-0 left-0 h-full w-full overflow-hidden [clip-path:polygon(0_100%,100%_100%,100%_100%,0_100%)] will-change-[clip-path]"
             key={slide.image}
             data-slide
             style={i === 0 ? { clipPath: CLIP.full } : undefined}

@@ -7,9 +7,22 @@ import { SplitText } from "gsap/SplitText";
 gsap.registerPlugin(useGSAP, SplitText);
 
 const PANELS = ["bg-[#57cea5]", "bg-[#063124]", "bg-[#0b5c43]", "bg-[#21ba80]"];
-const SOCIALS = ["Bluesky", "Pinterest", "Youtube", "Instagram", "Linkedin", "X"];
+const SOCIALS = [
+  "Bluesky",
+  "Pinterest",
+  "Youtube",
+  "Instagram",
+  "Linkedin",
+  "X",
+];
 const LEGAL = ["Cookie Policy", "Accessibility", "Data Rights", "Disclosures"];
-const PRIMARY = ["Home", "Experiments", "Latest Updates", "Documentation", "Community"];
+const PRIMARY = [
+  "Home",
+  "Experiments",
+  "Latest Updates",
+  "Documentation",
+  "Community",
+];
 const SECONDARY = ["Playground", "Build Something", "Activity Feed", "Profile"];
 
 const OverlayMenu = () => {
@@ -92,7 +105,13 @@ const OverlayMenu = () => {
     <main ref={root} className="bg-[#141414] font-onest">
       <nav className="fixed top-0 z-2 flex w-full items-center justify-between p-4">
         <a href="#" className="p-4" aria-label="Home">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="#fff"
+            aria-hidden="true"
+          >
             <path d="M12 0 L14.2 9.8 L24 12 L14.2 14.2 L12 24 L9.8 14.2 L0 12 L9.8 9.8 Z" />
           </svg>
         </a>
@@ -132,17 +151,28 @@ const OverlayMenu = () => {
           ref={sheet}
           className="flex gap-8 bg-[#084331] p-32 [clip-path:polygon(0%_0%,100%_0%,100%_0%,0%_0%)] will-change-[clip-path] max-[1000px]:h-svh max-[1000px]:flex-col max-[1000px]:justify-center max-[1000px]:px-8 max-[1000px]:py-0"
         >
-          <div ref={leftCol} className="flex flex-2 flex-col justify-between gap-8 max-[1000px]:flex-none">
+          <div
+            ref={leftCol}
+            className="flex flex-2 flex-col justify-between gap-8 max-[1000px]:flex-none"
+          >
             <div className="text-white">
               {SOCIALS.map((label) => (
-                <a key={label} href="#" className="mb-2 block text-xl leading-[1.1] tracking-[-0.02em]">
+                <a
+                  key={label}
+                  href="#"
+                  className="mb-2 block text-xl leading-[1.1] tracking-[-0.02em]"
+                >
                   {label}
                 </a>
               ))}
             </div>
             <div className="text-[#318b6f] max-[1000px]:hidden">
               {LEGAL.map((label) => (
-                <a key={label} href="#" className="mb-2 block text-[0.9rem] leading-[1.1] tracking-[-0.02em]">
+                <a
+                  key={label}
+                  href="#"
+                  className="mb-2 block text-[0.9rem] leading-[1.1] tracking-[-0.02em]"
+                >
                   {label}
                 </a>
               ))}
@@ -152,14 +182,22 @@ const OverlayMenu = () => {
           <div className="flex flex-4 justify-between gap-8 max-[1000px]:flex-none">
             <div ref={primaryCol} className="text-white">
               {PRIMARY.map((label) => (
-                <a key={label} href="#" className="mb-2 block text-5xl leading-[1.1] tracking-[-0.02em]">
+                <a
+                  key={label}
+                  href="#"
+                  className="mb-2 block text-5xl leading-[1.1] tracking-[-0.02em]"
+                >
                   {label}
                 </a>
               ))}
             </div>
             <div ref={secondaryCol} className="text-white max-[1000px]:hidden">
               {SECONDARY.map((label) => (
-                <a key={label} href="#" className="mb-2 block text-2xl leading-[1.1] tracking-[-0.02em]">
+                <a
+                  key={label}
+                  href="#"
+                  className="mb-2 block text-2xl leading-[1.1] tracking-[-0.02em]"
+                >
                   {label}
                 </a>
               ))}

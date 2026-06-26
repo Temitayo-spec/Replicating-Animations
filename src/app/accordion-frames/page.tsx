@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import CodeShowcase from "@/components/CodeShowcase/CodeShowcase";
-import Spotlight from "@/components/AccordionFrames/Spotlight";
+import Spotlight from "@/app/accordion-frames/Spotlight";
 
 const source = fs.readFileSync(
   path.join(process.cwd(), "src/components/AccordionFrames/Spotlight.tsx"),

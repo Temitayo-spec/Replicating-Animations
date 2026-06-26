@@ -10,7 +10,6 @@ const PANEL_COUNT_DESKTOP = 20;
 const PANEL_COUNT_MOBILE = 10;
 const BREAKPOINT_MOBILE = 1000;
 
-// Fresh Unsplash frames interleaved with the project's existing imagery.
 const PANEL_IMAGES = Array.from({ length: 12 }).flatMap((_, i) => [
   `/images/spotlight-${i}.jpg`,
   `/images/${i + 1}.jpg`,
@@ -83,13 +82,13 @@ const Spotlight = () => {
       >
         <div className="relative h-[400px] w-full max-[1000px]:h-[260px]">
           <div
-            className="pointer-events-none absolute top-0 z-[100] h-full border-[3px] border-white transition-all duration-1000 ease-[cubic-bezier(0.075,0.82,0.165,1)] [will-change:left,width] before:absolute before:bottom-full before:left-1/2 before:h-svh before:w-[3px] before:-translate-x-1/2 before:bg-white before:content-[''] after:absolute after:top-full after:left-1/2 after:h-svh after:w-[3px] after:-translate-x-1/2 after:bg-white after:content-['']"
+            className="pointer-events-none absolute top-0 z-100 h-full border-[3px] border-white transition-all duration-1000 ease-[cubic-bezier(0.075,0.82,0.165,1)] will-change-[left,width] before:absolute before:bottom-full before:left-1/2 before:h-svh before:w-[3px] before:-translate-x-1/2 before:bg-white before:content-[''] after:absolute after:top-full after:left-1/2 after:h-svh after:w-[3px] after:-translate-x-1/2 after:bg-white after:content-['']"
             style={getFocusIndicatorPosition()}
           />
           {Array.from({ length: panelCount }).map((_, i) => (
             <div
               key={`${isMobile ? "m" : "d"}-${i}`}
-              className="absolute top-0 h-full cursor-pointer overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.075,0.82,0.165,1)] [will-change:left,width]"
+              className="absolute top-0 h-full cursor-pointer overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.075,0.82,0.165,1)] will-change-[left,width]"
               style={getPanelPosition(i)}
               onMouseEnter={!isMobile ? () => focusPanel(i) : undefined}
               onClick={isMobile ? () => focusPanel(i) : undefined}

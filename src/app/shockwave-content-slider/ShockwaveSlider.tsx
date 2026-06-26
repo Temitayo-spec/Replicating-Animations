@@ -60,9 +60,6 @@ const SLIDES: Slide[] = [
   },
 ];
 
-// Static utility classes baked into each (dynamically built) slide. Semantic
-// hook classes (slide-content / slide-title / slide-description) are kept so
-// the JS and SplitText can still target them.
 const SLIDE_HTML = (slide: Slide) => `
   <div class="slide-title absolute left-12 top-1/2 w-max -translate-y-1/2 text-white max-[1000px]:left-1/2 max-[1000px]:-translate-x-1/2">
     <h1 class="text-[clamp(2rem,4vw,6rem)] font-medium leading-tight tracking-[-0.02em]">${slide.title}</h1>
@@ -198,8 +195,6 @@ const ShockwaveSlider = () => {
         texture.wrapT = THREE.ClampToEdgeWrapping;
       });
 
-      // Natural pixel size of each image, so the shader can cover-fit textures
-      // of any aspect ratio (the codebase images aren't all the same shape).
       const imageSizes = textures.map((t) => {
         const img = t.image as HTMLImageElement;
         return new THREE.Vector2(img.naturalWidth, img.naturalHeight);
@@ -244,7 +239,6 @@ const ShockwaveSlider = () => {
       scene.add(plane);
 
       const getMaxCornerDist = () => {
-        // Match the shader, which scales coord.y by width/height.
         const aspect = window.innerWidth / window.innerHeight;
         return Math.sqrt(0.5 * 0.5 + 0.5 * aspect * (0.5 * aspect));
       };
@@ -259,7 +253,6 @@ const ShockwaveSlider = () => {
       window.addEventListener("resize", resize);
       resize();
 
-      // First slide — built through the same path as the rest, then revealed.
       const firstSlide = buildSlideContent(SLIDES[0]);
       gsap.set(firstSlide, { opacity: 1 });
       const initialTitle = splitTitle(firstSlide);
@@ -273,7 +266,13 @@ const ShockwaveSlider = () => {
       gsap.fromTo(
         initialLines,
         { y: "100%" },
-        { y: "0%", duration: 0.8, stagger: 0.025, ease: "power2.out", delay: 0.2 },
+        {
+          y: "0%",
+          duration: 0.8,
+          stagger: 0.025,
+          ease: "power2.out",
+          delay: 0.2,
+        },
       );
 
       const transition = () => {
@@ -347,9 +346,7 @@ const ShockwaveSlider = () => {
       rippleTween?.kill();
       renderer.domElement.remove();
       renderer.dispose();
-      slider
-        .querySelectorAll(".slide-content")
-        .forEach((el) => el.remove());
+      slider.querySelectorAll(".slide-content").forEach((el) => el.remove());
     };
   }, []);
 

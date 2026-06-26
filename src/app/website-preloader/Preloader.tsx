@@ -1,6 +1,6 @@
-'use client';
-import gsap from 'gsap';
-import { useRef, useEffect } from 'react';
+"use client";
+import gsap from "gsap";
+import { useRef, useEffect } from "react";
 
 const WebsitePreloader = () => {
   return (

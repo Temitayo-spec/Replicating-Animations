@@ -1,25 +1,24 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { Key, useEffect, useRef, useState } from 'react';
-import { useTransform, useScroll, motion } from 'framer-motion';
-import { MotionValue } from 'framer-motion/dom';
-import Lenis from '@studio-freight/lenis';
+import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { Key, useEffect, useRef, useState } from "react";
+import { useTransform, useScroll, motion } from "framer-motion";
+import Lenis from "@studio-freight/lenis";
 
 const images = [
-  '/images/1.jpg',
-  '/images/2.jpg',
-  '/images/3.jpg',
-  '/images/4.jpg',
-  '/images/5.jpg',
-  '/images/6.jpg',
-  '/images/7.jpg',
-  '/images/8.jpg',
-  '/images/9.jpg',
-  '/images/10.jpg',
-  '/images/11.jpg',
-  '/images/12.jpg',
+  "/images/1.jpg",
+  "/images/2.jpg",
+  "/images/3.jpg",
+  "/images/4.jpg",
+  "/images/5.jpg",
+  "/images/6.jpg",
+  "/images/7.jpg",
+  "/images/8.jpg",
+  "/images/9.jpg",
+  "/images/10.jpg",
+  "/images/11.jpg",
+  "/images/12.jpg",
 ] as string[];
 
 const SmoothParallaxScroll: React.FC = () => {
@@ -28,7 +27,7 @@ const SmoothParallaxScroll: React.FC = () => {
   const { height } = dimension;
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
 
   useEffect(() => {
@@ -45,12 +44,12 @@ const SmoothParallaxScroll: React.FC = () => {
       setDimension({ width: window.innerWidth, height: window.innerHeight });
     };
 
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
     requestAnimationFrame(raf);
     resize();
 
     return () => {
-      window.removeEventListener('resize', resize);
+      window.removeEventListener("resize", resize);
     };
   }, []);
 
@@ -65,10 +64,26 @@ const SmoothParallaxScroll: React.FC = () => {
         ref={container}
         className="relative flex h-[175vh] gap-[2vw] overflow-hidden box-border p-[2vw]"
       >
-        <Column images={[images[0], images[1], images[2]]} y={y} top="top-[-45%]" />
-        <Column images={[images[3], images[4], images[5]]} y={y2} top="top-[-95%]" />
-        <Column images={[images[6], images[7], images[8]]} y={y3} top="top-[-45%]" />
-        <Column images={[images[9], images[10], images[11]]} y={y4} top="top-[-75%]" />
+        <Column
+          images={[images[0], images[1], images[2]]}
+          y={y}
+          top="top-[-45%]"
+        />
+        <Column
+          images={[images[3], images[4], images[5]]}
+          y={y2}
+          top="top-[-95%]"
+        />
+        <Column
+          images={[images[6], images[7], images[8]]}
+          y={y3}
+          top="top-[-45%]"
+        />
+        <Column
+          images={[images[9], images[10], images[11]]}
+          y={y4}
+          top="top-[-75%]"
+        />
       </div>
       <div className="h-screen w-screen bg-[pink]"></div>
     </main>
@@ -99,7 +114,7 @@ const Column = ({
           >
             <Image src={src} fill alt="image" className="object-cover" />
           </div>
-        )
+        ),
       )}
     </motion.div>
   );
