@@ -1,7 +1,6 @@
 "use client";
 import Gallery from "@/components/SplitVigenette/Gallery";
 import { useEffect, useState } from "react";
-import Lenis from "@studio-freight/lenis";
 import { useMotionValue, useSpring } from "framer-motion";
 
 const projects = [
@@ -24,17 +23,6 @@ const projects = [
 ];
 
 const SplitVignette = () => {
-  useEffect(() => {
-    const lenis = new Lenis();
-
-    function raf(time: any) {
-      lenis.raf(time);
-
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-  }, []);
   const spring = {
     stiffness: 150,
     damping: 15,
