@@ -4,7 +4,7 @@ import CodeShowcase from "@/components/CodeShowcase/CodeShowcase";
 import Spotlight from "@/app/accordion-frames/Spotlight";
 
 const source = fs.readFileSync(
-  path.join(process.cwd(), "src/components/AccordionFrames/Spotlight.tsx"),
+  path.join(process.cwd(), "src/app/accordion-frames/Spotlight.tsx"),
   "utf8",
 );
 
